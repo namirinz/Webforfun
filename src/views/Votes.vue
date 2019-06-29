@@ -115,13 +115,22 @@ export default {
       this.updatedate();
     },
     updatedate() {
-        let count1 = 0
       db.collection("users").onSnapshot(querySnapshot => {
+          let count0 = 0,count1 = 0;
+        console.log(querySnapshot.size);
         querySnapshot.forEach(function(doc) {
-        //   console.log("Current data: ", doc.data().vote == 1);
+            if(doc.data().vote == 0){
+                count0++
+            }else{
+                count1++
+            }
+        //   console.log("Current data: ", doc.data());
         });
+        console.log('count0',count0)
+        console.log('count1',count1)
+        this.members[0].score = count0
+        this.members[1].score = count1
       });
-        console.log(count1)
     }
   }
 };
