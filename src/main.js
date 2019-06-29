@@ -4,6 +4,7 @@ import router from './router'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import firebase from 'firebase';
+import 'firebase/firestore'
 import {
   config
 } from "./firebase";
@@ -36,3 +37,5 @@ new Vue({
   },
   render: h => h(App)
 }).$mount('#app')
+
+export const db = firebase.firestore()

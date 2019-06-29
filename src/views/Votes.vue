@@ -28,9 +28,9 @@
 <script>
 // @ is an alias to /src
 import person from "@/components/person.vue";
+import { db } from "../main";
 import firebase from "firebase";
 const axios = require("axios");
-// let db = firebase.firestore();
 export default {
   name: "votes",
   beforeCreate: function() {
@@ -90,7 +90,8 @@ export default {
             { headers: { Authorization: `Bearer ${this.user}` } }
           )
           .then(result => {
-            console.log("==================", result);
+            console.log("vote 0");
+            // console.log("==================", result);
           })
           .catch(e => {
             console.log(e);
@@ -103,13 +104,24 @@ export default {
             { headers: { Authorization: `Bearer ${this.user}` } }
           )
           .then(result => {
-            console.log("==================", result);
+            console.log("vote 1");
+            // console.log("==================", result);
           })
           .catch(e => {
             console.log(e);
           });
       }
       this.votename = "";
+      this.updatedate();
+    },
+    updatedate() {
+        let count1 = 0
+      db.collection("users").onSnapshot(querySnapshot => {
+        querySnapshot.forEach(function(doc) {
+        //   console.log("Current data: ", doc.data().vote == 1);
+        });
+      });
+        console.log(count1)
     }
   }
 };
