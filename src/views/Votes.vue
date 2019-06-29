@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="votes">
     <div class="container is-fullhd">
       <div class="columns is-multiline">
         <section class="column is-12 head">
@@ -10,10 +10,11 @@
           <div class="column is-6" v-for="i in members" :key="i">
             <person :name="i.score" :imgpath="i.imgpath"></person>
           </div>
-          <div class="column is-12">
-            <transition name="fade">
-            <h1 v-if="win" class="is-size-2">Congratulation to XXXX</h1>
-            </transition>
+          <div class="column is-10">
+              <input class="input is-rounded" type="text" placeholder="Rounded input">
+          </div>
+          <div class="column is-2">
+              <button class="button is-outlined">Submit</button>
           </div>
         </section>
       </div>
@@ -25,7 +26,7 @@
 // @ is an alias to /src
 import person from "@/components/person.vue";
 export default {
-  name: "home",
+  name: "votes",
   data() {
     return {
       value: "test",
@@ -64,4 +65,3 @@ export default {
   background: blue;
 }
 </style>
-
