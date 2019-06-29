@@ -11,10 +11,10 @@
             <person :name="i.score" :imgpath="i.imgpath"></person>
           </div>
           <div class="column is-10">
-              <input class="input is-rounded" type="text" placeholder="Rounded input">
+              <input @keyup.enter="vote" class="input is-rounded is-medium" type="text" placeholder="Rounded input" v-model="votename">
           </div>
           <div class="column is-2">
-              <button class="button is-outlined">Submit</button>
+              <button class="button is-outlined" @click="vote">Submit</button>
           </div>
         </section>
       </div>
@@ -31,6 +31,7 @@ export default {
     return {
       value: "test",
       win: true,
+      votename: '',
       members: [
         {
           score: "0",
@@ -46,7 +47,11 @@ export default {
   components: {
     person
   },
-  methods: {}
+  methods: {
+      vote(){
+          alert(this.votename)
+      }
+  }
 };
 </script>
 <style scoped>
