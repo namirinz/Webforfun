@@ -63,7 +63,7 @@ img {
     box-shadow: 0 0 30px 30px #4562e6;
   }
   to {
-    box-shadow: 0 0 30px -30px #ed4a4a;
+    box-shadow: 0 0 30px 0px #ed4a4a;
   }
 }
 </style>
