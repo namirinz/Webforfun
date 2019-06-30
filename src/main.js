@@ -5,6 +5,7 @@ import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import firebase from 'firebase';
 import 'firebase/firestore'
+
 import {
   config
 } from "./firebase";
@@ -13,8 +14,6 @@ Vue.use(Buefy)
 
 Vue.config.productionTip = false
 // Your web app's Firebase configuration
-
-// Initialize Firebase
 
 router.beforeEach((to, from, next) => {
   if (!to.meta.protected) { //route is public, don't check for authentication
@@ -27,6 +26,7 @@ router.beforeEach((to, from, next) => {
         router.push('/login')
       }
     })
+    router.push('/login')
     unsubscribe()
   }
 })

@@ -5,7 +5,7 @@
         <img :src="require(`@/assets/img/${imgpath}`)" class="rounded img-fluid" />
       </div>
       <div class="column is-6">
-        <div class="columns is-multiline">
+        <div v-if="name!=null" class="columns is-multiline">
           <div class="column is-12">
             <!-- <p>"{{imgpath}}"</p> -->
             <transition mode="out-in" name="slide-fade">
@@ -13,7 +13,12 @@
             </transition>
           </div>
           <div class="column is-12">
-            <progress class="progress is-large" :value="this.name" max="500">15%</progress>
+            <progress class="progress is-primary is-large" :value="this.name" :max="maxscore">15%</progress>
+          </div>
+        </div>
+        <div v-else class="columns is-multiline">
+          <div class="column is-12">
+            <progress class="progress is-large is-primary" max="100">15%</progress>
           </div>
         </div>
       </div>
@@ -23,7 +28,7 @@
 <script>
 export default {
   name: "person",
-  props: ["name", "showscore", "imgpath"],
+  props: ["name", "showscore", "imgpath", "maxscore"],
   data() {
     return {};
   }
@@ -34,10 +39,10 @@ img {
   width: 200px;
   height: 200px;
   border-radius: 100%;
-  animation: glow 1s infinite alternate;
+  animation: glow 2s infinite alternate;
 }
-.progress {
-  transition: 0.3s all;
+.progress::-webkit-progress-value {
+  transition: width 0.5s ease;
 }
 .scoretext {
   text-align: center;
@@ -45,7 +50,7 @@ img {
 }
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-    color:#75d640;
+  color: #ed4a4a;
   transition: opacity 0.25s;
 }
 
@@ -55,10 +60,10 @@ img {
 }
 @keyframes glow {
   from {
-    box-shadow: 0 0 20px -20px #aef4af;
+    box-shadow: 0 0 30px 30px #4562e6;
   }
   to {
-    box-shadow: 0 0 20px 20px #aef4af;
+    box-shadow: 0 0 30px -30px #ed4a4a;
   }
 }
 </style>

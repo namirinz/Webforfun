@@ -8,7 +8,7 @@
         </section>
         <section class="column columns is-multiline is-12 sec2">
           <div class="column is-6" v-for="i in members" :key="i">
-            <person :name="i.score" :imgpath="i.imgpath"></person>
+            <person :name="i.score" :imgpath="i.imgpath" :maxscore='members[0].score+members[1].score'></person>
           </div>
           <div class="column is-12">
             <transition name="fade">
@@ -25,6 +25,7 @@
 // @ is an alias to /src
 import person from "@/components/person.vue";
 import firebase from "firebase";
+import router from '../router'
 const axios = require("axios");
 export default {
   name: "home",
@@ -51,7 +52,7 @@ export default {
           });
         // alert(this.user)
       } else {
-        alert("nooo");
+        router.push("/login")
       }
     });
   },
@@ -63,11 +64,11 @@ export default {
       test: "",
       members: [
         {
-          score: "0",
+          score: null,
           imgpath: "person1.jpg"
         },
         {
-          score: "0",
+          score: null,
           imgpath: "person2.jpg"
         }
       ]
@@ -84,14 +85,21 @@ export default {
 };
 </script>
 <style scoped>
+.head{
+  background: rgba(0, 0, 0, 0.65);
+  max-width: 300px;
+  margin: 20px auto;
+  border-radius: 15px;
+}
 .head p {
   text-align: center;
 }
 .sec2 {
-  background: #e5e5e5;
+  background: rgba(150, 150, 150, 0.5);
   margin: auto;
   text-align: center;
   min-height: 600px;
+  border-radius: 15px;
 }
 .bar {
   width: 100px;

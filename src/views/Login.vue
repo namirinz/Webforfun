@@ -18,7 +18,7 @@ export default {
             callbacks: {
                 signInSuccessWithAuthResult() {
                     localStorage.setItem('authenticated', true)
-                    window.location.href = '/'
+                    window.location.href = '/votes'
                 }
             }
         }

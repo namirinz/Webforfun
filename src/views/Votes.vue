@@ -8,16 +8,22 @@
         </section>
         <section class="column columns is-multiline is-12 sec2 is-centered">
           <div class="column is-6" v-for="i in members" :key="i">
-            <person :name="i.score" :imgpath="i.imgpath"></person>
+            <person
+              :name="i.score"
+              :imgpath="i.imgpath"
+              :maxscore="members[0].score+members[1].score"
+            ></person>
           </div>
           <div class="column is-5">
-            <input
-              @keyup.enter="vote"
-              class="input is-rounded is-medium"
-              type="text"
-              placeholder="Rounded input"
-              v-model="votename"
-            />
+            <transition mode="out-in" name="slide-fade">
+              <input
+                @keyup.enter="vote"
+                class="input is-rounded is-medium"
+                type="text"
+                placeholder="โปรดเลือกคนดี ของสังคม"
+                v-model="votename"
+              />
+            </transition>
           </div>
         </section>
       </div>
@@ -27,6 +33,7 @@
 
 <script>
 // @ is an alias to /src
+import router from "../router";
 import person from "@/components/person.vue";
 import { db } from "../main";
 import firebase from "firebase";
@@ -56,7 +63,7 @@ export default {
           });
         // alert(this.user)
       } else {
-        alert("nooo");
+        router.push("/login");
       }
     });
   },
@@ -71,10 +78,10 @@ export default {
         {
           id: 0,
           name: "A",
-          score: 0,
+          score: null,
           imgpath: "person1.jpg"
         },
-        { id: 1, name: "B", score: 0, imgpath: "person2.jpg" }
+        { id: 1, name: "B", score: null, imgpath: "person2.jpg" }
       ]
     };
   },
@@ -116,34 +123,42 @@ export default {
     },
     updatedate() {
       db.collection("users").onSnapshot(querySnapshot => {
-          let count0 = 0,count1 = 0;
+        let count0 = 0,
+          count1 = 0;
         console.log(querySnapshot.size);
         querySnapshot.forEach(function(doc) {
-            if(doc.data().vote == 0){
-                count0++
-            }else{
-                count1++
-            }
-        //   console.log("Current data: ", doc.data());
+          if (doc.data().vote == 0) {
+            count0++;
+          } else {
+            count1++;
+          }
+          //   console.log("Current data: ", doc.data());
         });
-        console.log('count0',count0)
-        console.log('count1',count1)
-        this.members[0].score = count0
-        this.members[1].score = count1
+        console.log("count0", count0);
+        console.log("count1", count1);
+        this.members[0].score = count0;
+        this.members[1].score = count1;
       });
     }
   }
 };
 </script>
 <style scoped>
+.head{
+  background: rgba(0, 0, 0, 0.65);
+  max-width: 300px;
+  margin: 20px auto;
+  border-radius: 15px;
+}
 .head p {
   text-align: center;
 }
 .sec2 {
-  background: #e5e5e5;
+  background: rgba(150, 150, 150, 0.5);
   margin: auto;
   text-align: center;
   min-height: 600px;
+  border-radius: 15px;
 }
 .bar {
   width: 100px;
